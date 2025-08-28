@@ -28,14 +28,14 @@
 
 	// Enforce port expander for some HALs because it's mandatory for those and users constantly forget it. Endless story...
 	#if (HAL == 6) || (HAL == 7)
-		#define PORT_EXPANDER_ENABLE 
+		#define PORT_EXPANDER_ENABLE
 	#endif
 
 	//########################## MODULES #################################
 	//#define PORT_EXPANDER_ENABLE          // When enabled, buttons can be connected via port-expander PCA9555 (https://forum.espuino.de/t/einsatz-des-port-expanders-pca9555/306)
 	//#define I2S_COMM_FMT_LSB_ENABLE       // Enables FMT instead of MSB for I2S-communication-format. Used e.g. by PT2811. Don't enable for MAX98357a, AC101 or PCM5102A)
 	#define MDNS_ENABLE                     // When enabled, you don't have to handle with ESPuino's IP-address. If hostname is set to "ESPuino", you can reach it via ESPuino.local
-	//#define MQTT_ENABLE                   // Make sure to configure mqtt-server and (optionally) username+pwd
+	#define MQTT_ENABLE                     // Make sure to configure mqtt-server and (optionally) username+pwd
 	#define FTP_ENABLE                      // Enables FTP-server; DON'T FORGET TO ACTIVATE AFTER BOOT BY PRESSING PAUSE + NEXT-BUTTONS (IN PARALLEL)!
 	#define NEOPIXEL_ENABLE                 // Don't forget configuration of NUM_LEDS if enabled
 	//#define NEOPIXEL_REVERSE_ROTATION     // Some Neopixels are adressed/soldered counter-clockwise. This can be configured here.
@@ -67,9 +67,9 @@
 
 
 	//################## select RFID reader ##############################
-	#define RFID_READER_TYPE_MFRC522_SPI // use MFRC522 via SPI
+	//#define RFID_READER_TYPE_MFRC522_SPI // use MFRC522 via SPI
 	//#define RFID_READER_TYPE_MFRC522_I2C  // use MFRC522 via I2C
-	//#define RFID_READER_TYPE_PN5180 // use PN5180 via SPI
+	#define RFID_READER_TYPE_PN5180 // use PN5180 via SPI
 
 	#ifdef RFID_READER_TYPE_MFRC522_I2C
 		#define MFRC522_ADDR 0x28           // default I2C-address of MFRC522
@@ -124,19 +124,19 @@
 	#define BUTTON_4_SHORT    CMD_SEEK_BACKWARDS
 	#define BUTTON_5_SHORT    CMD_SEEK_FORWARDS
 
-	#define BUTTON_0_LONG     CMD_LASTTRACK
-	#define BUTTON_1_LONG     CMD_FIRSTTRACK
+	#define BUTTON_0_LONG     CMD_SEEK_FORWARDS
+	#define BUTTON_1_LONG     CMD_SEEK_BACKWARDS
 	#define BUTTON_2_LONG     CMD_PLAYPAUSE
 	#define BUTTON_3_LONG     CMD_SLEEPMODE
 	#define BUTTON_4_LONG     CMD_VOLUMEUP
 	#define BUTTON_5_LONG     CMD_VOLUMEDOWN
 
 	#define BUTTON_MULTI_01   CMD_NOTHING   //CMD_TOGGLE_WIFI_STATUS (disabled now to prevent children from unwanted WiFi-disable)
-	#define BUTTON_MULTI_02   CMD_ENABLE_FTP_SERVER
+	#define BUTTON_MULTI_02   CMD_NOTHING
 	#define BUTTON_MULTI_03   CMD_NOTHING
 	#define BUTTON_MULTI_04   CMD_NOTHING
 	#define BUTTON_MULTI_05   CMD_NOTHING
-	#define BUTTON_MULTI_12   CMD_TELL_IP_ADDRESS
+	#define BUTTON_MULTI_12   CMD_NOTHING
 	#define BUTTON_MULTI_13   CMD_NOTHING
 	#define BUTTON_MULTI_14   CMD_NOTHING
 	#define BUTTON_MULTI_15   CMD_NOTHING
@@ -261,32 +261,32 @@
 
 	// (optional) Topics for MQTT
 	#ifdef MQTT_ENABLE
-		#define DEVICE_HOSTNAME "ESP32-ESPuino"         // Name that is used for MQTT
-		constexpr const char topicSleepCmnd[] = "Cmnd/ESPuino/Sleep";
-		constexpr const char topicSleepState[] = "State/ESPuino/Sleep";
-		constexpr const char topicRfidCmnd[] = "Cmnd/ESPuino/Rfid";
-		constexpr const char topicRfidState[] = "State/ESPuino/Rfid";
-		constexpr const char topicTrackState[] = "State/ESPuino/Track";
-		constexpr const char topicTrackControlCmnd[] = "Cmnd/ESPuino/TrackControl";
-		constexpr const char topicCoverChangedState[] = "State/ESPuino/CoverChanged";
-		constexpr const char topicLoudnessCmnd[] = "Cmnd/ESPuino/Loudness";
-		constexpr const char topicLoudnessState[] = "State/ESPuino/Loudness";
-		constexpr const char topicSleepTimerCmnd[] = "Cmnd/ESPuino/SleepTimer";
-		constexpr const char topicSleepTimerState[] = "State/ESPuino/SleepTimer";
-		constexpr const char topicState[] = "State/ESPuino/State";
-		constexpr const char topicCurrentIPv4IP[] = "State/ESPuino/IPv4";
-		constexpr const char topicLockControlsCmnd[] ="Cmnd/ESPuino/LockControls";
-		constexpr const char topicLockControlsState[] ="State/ESPuino/LockControls";
-		constexpr const char topicPlaymodeState[] = "State/ESPuino/Playmode";
-		constexpr const char topicRepeatModeCmnd[] = "Cmnd/ESPuino/RepeatMode";
-		constexpr const char topicRepeatModeState[] = "State/ESPuino/RepeatMode";
-		constexpr const char topicLedBrightnessCmnd[] = "Cmnd/ESPuino/LedBrightness";
-		constexpr const char topicLedBrightnessState[] = "State/ESPuino/LedBrightness";
-		constexpr const char topicWiFiRssiState[] = "State/ESPuino/WifiRssi";
-		constexpr const char topicSRevisionState[] = "State/ESPuino/SoftwareRevision";
+		#define DEVICE_HOSTNAME "THEObox"         // Name that is used for MQTT
+		constexpr const char topicSleepCmnd[] = "Cmnd/THEObox/Sleep";
+		constexpr const char topicSleepState[] = "State/THEObox/Sleep";
+		constexpr const char topicRfidCmnd[] = "Cmnd/THEObox/Rfid";
+		constexpr const char topicRfidState[] = "State/THEObox/Rfid";
+		constexpr const char topicTrackState[] = "State/THEObox/Track";
+		constexpr const char topicTrackControlCmnd[] = "Cmnd/THEObox/TrackControl";
+		constexpr const char topicCoverChangedState[] = "State/THEObox/CoverChanged";
+		constexpr const char topicLoudnessCmnd[] = "Cmnd/THEObox/Loudness";
+		constexpr const char topicLoudnessState[] = "State/THEObox/Loudness";
+		constexpr const char topicSleepTimerCmnd[] = "Cmnd/THEObox/SleepTimer";
+		constexpr const char topicSleepTimerState[] = "State/THEObox/SleepTimer";
+		constexpr const char topicState[] = "State/THEObox/State";
+		constexpr const char topicCurrentIPv4IP[] = "State/THEObox/IPv4";
+		constexpr const char topicLockControlsCmnd[] ="Cmnd/THEObox/LockControls";
+		constexpr const char topicLockControlsState[] ="State/THEObox/LockControls";
+		constexpr const char topicPlaymodeState[] = "State/THEObox/Playmode";
+		constexpr const char topicRepeatModeCmnd[] = "Cmnd/THEObox/RepeatMode";
+		constexpr const char topicRepeatModeState[] = "State/THEObox/RepeatMode";
+		constexpr const char topicLedBrightnessCmnd[] = "Cmnd/THEObox/LedBrightness";
+		constexpr const char topicLedBrightnessState[] = "State/THEObox/LedBrightness";
+		constexpr const char topicWiFiRssiState[] = "State/THEObox/WifiRssi";
+		constexpr const char topicSRevisionState[] = "State/THEObox/SoftwareRevision";
 		#ifdef BATTERY_MEASURE_ENABLE
-		constexpr const char topicBatteryVoltage[] = "State/ESPuino/Voltage";
-		constexpr const char topicBatterySOC[]     = "State/ESPuino/Battery";
+		constexpr const char topicBatteryVoltage[] = "State/THEObox/Voltage";
+		constexpr const char topicBatterySOC[]     = "State/THEObox/Battery";
 		#endif
 	#endif
 
