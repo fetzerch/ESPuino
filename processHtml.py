@@ -20,7 +20,14 @@ except ImportError:
 from flask_minify.parsers import Parser
 import json
 
-try:    
+try:
+    import pkg_resources
+except:
+    print("Trying to Install required module: setuptools\nIf this failes, please execute \"pip install setuptools\" manually.")
+    env.Execute("$PYTHONEXE -m pip install setuptools")
+    import pkg_resources
+
+try:
     import pkg_resources
     pkg_resources.require("minify_html==0.15.0")
     import minify_html
